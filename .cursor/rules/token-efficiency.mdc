@@ -1,0 +1,137 @@
+---
+description: Optimize Cursor Agent token usage and keep coding tasks focused
+alwaysApply: true
+---
+
+# Token Efficiency Rules
+
+## 1. Keep context minimal
+
+- Read only files directly relevant to the current task.
+- Do not scan the entire repository unless explicitly requested.
+- Do not inspect unrelated components, screens, dependencies, or documentation.
+- Before reading a file, determine whether its contents are actually needed.
+- Prefer targeted searches over opening large files.
+- Do not repeat information already available in the current context.
+
+## 2. Work incrementally
+
+- Make the smallest change that fully solves the task.
+- Do not refactor unrelated code.
+- Do not redesign existing architecture unless the task requires it.
+- Do not add abstractions "for future use".
+- Do not create extra files unless necessary.
+- Prefer modifying existing code over creating duplicate implementations.
+
+## 3. Avoid unnecessary explanations
+
+- Do not explain obvious code.
+- Do not provide long introductions or summaries.
+- Do not repeat the user's requirements.
+- After completing a task, report only:
+  1. What changed
+  2. Files changed
+  3. Any important issue or next step
+- Keep the final response concise.
+
+## 4. Ask before expanding scope
+
+If the task can be solved in multiple ways:
+
+- Choose the simplest reasonable implementation.
+- Do not implement optional improvements automatically.
+- Do not add features that were not requested.
+- If a larger architectural change appears necessary, stop and ask before doing it.
+
+## 5. Search efficiently
+
+- Use targeted search with exact symbols, component names, or filenames.
+- Do not repeatedly search for the same information.
+- Once the relevant implementation is found, work from it.
+- Avoid broad repository searches when a narrower search is sufficient.
+
+## 6. Code generation
+
+- Generate only the code required for the current task.
+- Do not regenerate complete files when only a small section needs changing.
+- Preserve existing code and formatting.
+- Do not add comments unless they explain non-obvious logic.
+- Do not add verbose documentation for simple code.
+
+## 7. Debugging
+
+When fixing a bug:
+
+1. Identify the likely source.
+2. Inspect only the relevant code.
+3. Make the smallest fix.
+4. Run the most relevant check/test.
+5. Stop when the issue is resolved.
+
+Do not perform unrelated cleanup during debugging.
+
+## 8. Verification
+
+- Prefer the cheapest relevant verification first.
+- Do not run expensive commands unnecessarily.
+- Do not run the entire test suite for a small isolated change unless required.
+- If a check fails, investigate only the relevant failure.
+
+## 9. Dependencies
+
+- Do not install a package unless it is necessary.
+- Before adding a dependency, check whether the existing project can solve the problem.
+- Do not introduce libraries for trivial functionality.
+
+## 10. Nudge project rule
+
+For Nudge, prioritize learning and maintainability over maximum automation.
+
+- Do not implement large features without explicit instruction.
+- Keep architecture simple.
+- Avoid premature optimization.
+- Avoid unnecessary libraries.
+- Prefer Expo/React Native built-in capabilities when sufficient.
+- Keep components reusable but do not over-engineer them.
+
+## 11. User controls scope
+
+Treat the user's current request as the scope boundary.
+
+Do not:
+- implement future features
+- refactor unrelated code
+- redesign other screens
+- modify unrelated files
+- add speculative improvements
+
+unless explicitly requested.
+
+## 12. Response format
+
+After completing work, use:
+
+
+### Done
+- `file.tsx` — brief change
+- `file.ts` — brief change
+
+### Check
+- `npm ...` — result
+
+### Note
+Only mention something if it requires the user's attention.
+
+Keep the response under 10 lines whenever possible.
+
+## 13. Learning mode
+
+The user is learning by building Nudge.
+
+Do not automatically implement an entire feature when a smaller guided change is sufficient.
+
+When the user asks for help with implementation:
+- Prefer explaining the approach and letting the user implement it.
+- Provide code only when explicitly requested or when a small code example is needed.
+- Do not rewrite working code merely to make it "better".
+- Preserve the user's implementation decisions unless they cause a real problem.
