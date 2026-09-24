@@ -1,0 +1,778 @@
+---
+description: Nudge project rules — token efficiency, architecture, TypeScript, React Native, Expo, code quality and Git
+alwaysApply: true
+---
+
+# Nudge — Cursor Agent Rules
+
+## 1. CORE PRINCIPLE
+
+Work efficiently and incrementally.
+
+The user is learning by building Nudge, so optimize for:
+- clean understandable code
+- maintainability
+- learning
+- minimal unnecessary changes
+- minimal token usage
+
+Do not blindly rewrite the project.
+
+The user's current request defines the scope.
+
+---
+
+## 2. KEEP CONTEXT MINIMAL
+
+- Read only files directly relevant to the current task.
+- Do not scan the entire repository unless explicitly requested.
+- Do not inspect unrelated screens, components, dependencies or documentation.
+- Before opening a file, determine whether it is necessary.
+- Prefer targeted searches over opening large files.
+- Do not repeatedly search for information already found.
+- Do not repeat information already available in context.
+- Do not inspect generated/build/cache directories.
+
+Prefer:
+- exact symbol searches
+- exact filename searches
+- targeted code inspection
+
+Avoid broad repository exploration unless necessary.
+
+---
+
+## 3. WORK INCREMENTALLY
+
+- Make the smallest change that fully solves the task.
+- Do not refactor unrelated code.
+- Do not redesign architecture unless explicitly requested.
+- Do not add abstractions "for future use".
+- Do not create unnecessary files.
+- Prefer modifying existing code over creating duplicate implementations.
+- Do not rewrite complete files when only a small section needs changing.
+- Preserve working code unless there is a concrete reason to change it.
+
+---
+
+## 4. USER CONTROLS SCOPE
+
+Do NOT automatically:
+
+- implement future features
+- redesign other screens
+- refactor unrelated code
+- change navigation
+- change architecture
+- install dependencies
+- upgrade Expo
+- upgrade React Native
+- add state management
+- add backend functionality
+- add AI
+- add Wear OS functionality
+- add notifications
+- create speculative abstractions
+
+unless explicitly requested.
+
+If a larger architectural change appears necessary, explain it briefly and ask before proceeding.
+
+---
+
+## 5. LEARNING MODE
+
+The user is learning by building Nudge.
+
+When the user asks for implementation help:
+
+- Prefer explaining the approach when implementation is educational.
+- Do not automatically implement an entire feature if a smaller guided change is sufficient.
+- Provide code when explicitly requested or when a small example is necessary.
+- Do not rewrite working code merely because another approach is possible.
+- Preserve the user's implementation decisions unless they create a real problem.
+- Prefer simple and explicit code over clever abstractions.
+
+---
+
+## 6. NUDGE TECHNOLOGY
+
+Project:
+- React Native
+- Expo
+- TypeScript
+- Expo Router if already used
+- React Native APIs
+- Expo-supported libraries
+
+Prefer Expo/React Native built-in capabilities when sufficient.
+
+Do not introduce native code unnecessarily.
+
+Do not change the existing Expo workflow unless explicitly required.
+
+---
+
+# ARCHITECTURE
+
+## 7. GENERAL ARCHITECTURE
+
+Keep architecture simple and scalable.
+
+Preferred structure when appropriate:
+
+src/
+  components/
+  screens/
+  hooks/
+  services/
+  store/
+  theme/
+  types/
+  utils/
+  constants/
+  assets/
+
+If Expo Router is used, keep its routing structure according to Expo conventions.
+
+Do not force this structure onto the project if the existing structure is already reasonable.
+
+Avoid:
+- unnecessary layers
+- unnecessary services
+- unnecessary repositories
+- unnecessary abstractions
+- circular dependencies
+
+Prefer clear dependency direction:
+
+screens
+  ↓
+components
+  ↓
+hooks / services / utils / theme
+
+---
+
+## 8. COMPONENTS
+
+Extract components only when they are:
+
+- reused
+- independently meaningful
+- complex enough to improve readability
+
+Do not create components for every small JSX block.
+
+Potential reusable Nudge components include:
+
+- Button
+- Header
+- Mascot
+- SpeechBubble
+- TaskCard
+- StatCard
+- XPProgress
+- BottomNavigation
+- Input
+- Selector
+
+Only create them when the current design actually justifies them.
+
+---
+
+# DESIGN SYSTEM
+
+## 9. CENTRALIZE DESIGN TOKENS
+
+Repeated design values must not be scattered throughout components.
+
+Centralize:
+
+- colors
+- typography
+- font sizes
+- font weights
+- line heights
+- spacing
+- border radii
+- shadows
+- common dimensions
+
+Possible structure:
+
+theme/
+  colors.ts
+  typography.ts
+  spacing.ts
+  radii.ts
+  shadows.ts
+  index.ts
+
+Use the actual values from the existing Figma design.
+
+Do not invent a new visual design.
+
+Do not change the existing UI during architectural cleanup.
+
+Do not create tokens for values that are genuinely unique.
+
+---
+
+## 10. COLORS
+
+Use semantic color names.
+
+Prefer:
+
+colors.primary
+colors.background
+colors.surface
+colors.text.primary
+colors.text.secondary
+colors.success
+colors.warning
+
+Avoid:
+
+colors.green
+colors.gray2
+colors.darkGreen
+
+Do not leave repeated hex values throughout components.
+
+---
+
+## 11. TYPOGRAPHY
+
+Centralize typography.
+
+Create reusable definitions for styles actually used by the application.
+
+Examples:
+
+- heading
+- subheading
+- body
+- bodySmall
+- caption
+- button
+- label
+
+Use the existing font family and weights.
+
+Do not introduce a new font unless explicitly required.
+
+Do not duplicate fontSize/fontWeight/lineHeight throughout components.
+
+---
+
+## 12. SPACING AND RADII
+
+Centralize repeated spacing and radius values.
+
+Prefer:
+
+spacing.xs
+spacing.sm
+spacing.md
+spacing.lg
+spacing.xl
+
+and:
+
+radii.sm
+radii.md
+radii.lg
+radii.full
+
+Use existing design values.
+
+Do not force every number into a token.
+
+---
+
+# STYLING
+
+## 13. REACT NATIVE STYLES
+
+Prefer:
+
+StyleSheet.create()
+
+Avoid excessive inline styles.
+
+Keep component-specific styles close to the component.
+
+Keep shared design tokens inside the theme.
+
+Do not use web CSS patterns.
+
+Remove duplicated styles.
+
+---
+
+# TYPESCRIPT
+
+## 14. STRICT TYPESCRIPT
+
+The project must not use `any`.
+
+Forbidden:
+
+any
+as any
+@ts-ignore
+@ts-nocheck
+
+Do not replace `any` with `unknown` blindly just to satisfy ESLint.
+
+Use:
+- proper types
+- interfaces
+- unions
+- generics
+- type guards
+
+If an external library genuinely requires an unsafe boundary, isolate it and explain it.
+
+Avoid unnecessary type assertions.
+
+---
+
+# ESLINT
+
+## 15. ESLINT
+
+Configure ESLint for the current Expo + React Native + TypeScript setup.
+
+ESLint should catch:
+
+- unused variables
+- unused imports
+- React mistakes
+- hooks mistakes
+- TypeScript problems
+- unsafe patterns
+- explicit `any`
+- import ordering
+
+Do not disable rules simply to make errors disappear.
+
+Fix the underlying code.
+
+Avoid excessive stylistic ESLint rules that duplicate Prettier.
+
+ESLint handles code quality and correctness.
+
+---
+
+# PRETTIER
+
+## 16. PRETTIER
+
+Configure consistent Prettier formatting.
+
+Format:
+
+- TypeScript
+- TSX
+- JavaScript
+- JSON
+- configuration files
+
+Keep configuration conventional.
+
+Do not over-customize formatting.
+
+Ensure ESLint and Prettier do not conflict.
+
+---
+
+# IMPORTS
+
+## 17. IMPORT SORTING
+
+Configure automatic import sorting using the project's ESLint setup.
+
+Preferred order:
+
+1. React / React Native
+2. Expo packages
+3. Third-party packages
+4. Project aliases
+5. Relative imports
+6. Styles
+7. Assets
+
+Example:
+
+import { useState } from 'react';
+import { Pressable, Text, View } from 'react-native';
+
+import { StatusBar } from 'expo-status-bar';
+
+import { create } from 'zustand';
+
+import { Button } from '@/components/Button';
+import { colors } from '@/theme';
+
+import { useTask } from '../hooks/useTask';
+
+import styles from './styles';
+
+Rules:
+
+- remove duplicate imports
+- merge imports from the same module when appropriate
+- remove unused imports
+- keep type-only imports consistent
+- maintain the same ordering across the project
+- allow ESLint to automatically fix ordering
+- do not manually use a different ordering in individual files
+
+Do not make Prettier responsible for import sorting.
+
+---
+
+# REACT / REACT NATIVE
+
+## 18. REACT BEST PRACTICES
+
+Review for:
+
+- unnecessary state
+- duplicated state
+- derived state stored unnecessarily
+- unnecessary useEffect
+- stale closures
+- incorrect cleanup
+- state updates after unmount
+- unnecessary re-renders
+- missing list keys
+- expensive work during render
+
+Do not add useMemo/useCallback/memo everywhere.
+
+Use memoization only when there is a real performance reason.
+
+Prefer simple React code.
+
+---
+
+# TIMERS
+
+## 19. TIMER RULES
+
+Audit all timer-related code:
+
+- setTimeout
+- setInterval
+- countdowns
+- focus timers
+- elapsed time
+- scheduled tasks
+- Date calculations
+
+Timer business logic should not be unnecessarily embedded inside UI components.
+
+For countdown/elapsed-time functionality:
+
+- use timestamps as the source of truth
+- calculate remaining time from actual time
+- do not rely on decrementing a counter every interval
+- clean up timers
+- prevent duplicate timers
+- prevent memory leaks
+- avoid stale closures
+- handle app background/foreground transitions where relevant
+- do not assume JavaScript intervals execute exactly on schedule
+
+Avoid:
+
+remainingSeconds -= 1
+
+as the source of truth.
+
+Prefer timestamp-based calculations such as:
+
+endTime - currentTime
+
+when appropriate.
+
+Create a reusable timer hook/service only if the project actually needs one.
+
+---
+
+# STATE
+
+## 20. STATE MANAGEMENT
+
+Keep state as close as possible to where it is used.
+
+Do not introduce Redux, Zustand, Context or another state library unless required.
+
+Avoid global state for local UI state.
+
+Do not duplicate the same state in multiple places.
+
+Do not store derived data when it can be calculated safely.
+
+---
+
+# DEPENDENCIES
+
+## 21. DEPENDENCY MANAGEMENT
+
+- Do not install packages unless necessary.
+- Check existing dependencies before adding a new one.
+- Prefer Expo/React Native functionality when sufficient.
+- Do not add libraries for trivial functionality.
+- Do not remove working dependencies without verifying they are unused.
+- Do not perform major dependency upgrades automatically.
+
+If an Expo/RN upgrade appears necessary, report it separately instead of doing it automatically.
+
+---
+
+# EXPO
+
+## 22. EXPO BEST PRACTICES
+
+Follow current stable Expo and React Native practices compatible with the project's existing SDK.
+
+Review when relevant:
+
+- Expo configuration
+- assets
+- fonts
+- notifications
+- permissions
+- platform handling
+- environment configuration
+
+Do not eject or change the native workflow unless explicitly requested.
+
+Do not upgrade the Expo SDK as part of an unrelated refactor.
+
+---
+
+# ACCESSIBILITY
+
+## 23. ACCESSIBILITY
+
+For interactive elements, use appropriate React Native accessibility properties where relevant:
+
+- accessibilityRole
+- accessibilityLabel
+- accessible
+
+Maintain appropriate touch target sizes.
+
+Do not change the visual design just to add accessibility.
+
+---
+
+# PERFORMANCE
+
+## 24. PERFORMANCE
+
+Fix obvious performance problems.
+
+Pay particular attention to:
+
+- FlatList vs ScrollView
+- unnecessary renders
+- expensive calculations
+- timers
+- animations
+- large components
+- image handling
+
+Do not perform speculative micro-optimizations.
+
+---
+
+# FILE HYGIENE
+
+## 25. CODE HYGIENE
+
+Remove when genuinely unused:
+
+- imports
+- variables
+- constants
+- exports
+- dead code
+
+Avoid circular dependencies.
+
+Do not delete files unless verified to be unused.
+
+---
+
+# DEBUGGING
+
+## 26. DEBUGGING PROCESS
+
+When fixing a bug:
+
+1. Identify the likely source.
+2. Inspect only relevant code.
+3. Make the smallest fix.
+4. Run the cheapest relevant verification.
+5. Stop when the issue is resolved.
+
+Do not perform unrelated cleanup during debugging.
+
+---
+
+# VERIFICATION
+
+## 27. VERIFICATION
+
+Prefer the cheapest relevant verification first.
+
+Available project checks should include when appropriate:
+
+npm run typecheck
+npm run lint
+npm run format:check
+
+Do not run the entire test suite for a small isolated change unless required.
+
+After a refactor:
+
+- zero TypeScript errors
+- zero ESLint errors
+- zero forbidden `any`
+- consistent formatting
+
+If pre-existing errors remain, report them instead of pretending they were fixed.
+
+---
+
+# GIT
+
+## 28. COMMIT MESSAGES
+
+Use Conventional Commits.
+
+Format:
+
+type(scope): short description
+
+Allowed types:
+
+feat
+fix
+refactor
+perf
+style
+test
+docs
+chore
+build
+ci
+
+Examples:
+
+feat(onboarding): add welcome screen
+fix(timer): prevent duplicate countdown intervals
+refactor(theme): centralize design tokens
+refactor(components): extract task card
+perf(tasks): optimize task list rendering
+style(imports): sort project imports
+chore(eslint): enforce strict TypeScript rules
+chore(prettier): configure project formatting
+
+Rules:
+
+- use imperative mood
+- start description with lowercase
+- no period at the end
+- keep subject concise
+- describe what changed
+- use scope when useful
+- do not use vague messages
+- keep the subject ideally below 72 characters
+
+Avoid:
+
+update code
+fixed stuff
+changes
+fix stuff
+refactor everything
+
+---
+
+## 29. COMMIT HYGIENE
+
+Before suggesting a commit message:
+
+1. Inspect the actual diff.
+2. Identify the primary purpose.
+3. Choose the correct type.
+4. Choose a useful scope if appropriate.
+5. Generate a concise message.
+
+If the diff contains unrelated changes, point this out.
+
+Do not invent a misleading single commit message.
+
+Do not run `git commit` automatically.
+
+Only create a commit when explicitly asked.
+
+After completing a meaningful task, you may suggest a commit message.
+
+---
+
+# TOKEN EFFICIENCY
+
+## 30. RESPONSE EFFICIENCY
+
+Do not waste tokens on:
+
+- long introductions
+- obvious explanations
+- repeating requirements
+- repeating unchanged code
+- unnecessary summaries
+- speculative suggestions
+
+When reporting completed work, use:
+
+### Done
+- `file.tsx` — brief change
+- `file.ts` — brief change
+
+### Check
+- TypeScript — result
+- ESLint — result
+- Prettier — result
+
+### Commit
+`type(scope): description`
+
+### Note
+Only mention something that requires the user's attention.
+
+Keep the final response under 10 lines whenever possible.
+
+---
+
+# 31. FINAL SCOPE RULE
+
+The current user request is the source of truth.
+
+Solve the requested problem completely, but do not expand the task unnecessarily.
+
+When uncertain between:
+- a small change
+- a large refactor
+
+prefer the small change unless the user explicitly requested architectural refactoring.
+
+When a large change is genuinely required, explain why briefly before proceeding.
