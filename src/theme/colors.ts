@@ -12,4 +12,7 @@ export const colors = {
   inactive: '#CBD5E1',
   successSurface: '#ECFDF5',
   warningSurface: '#FEF9C3',
+  primaryMuted: '#DCFCE7',
+  selectedSurface: '#F0FDF4',
+  dangerSurface: '#FEE2E2',
 } as const;
