@@ -1,7 +1,6 @@
-import { type ReactNode } from 'react';
-import { StyleSheet, Text, View, type ViewStyle } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-import Svg, {
+import {
   Defs,
   FeBlend,
   FeFlood,
@@ -11,35 +10,11 @@ import Svg, {
   Path,
   RadialGradient,
   Stop,
+  Svg,
 } from 'react-native-svg';
 
+import { IllustrationLayer as Layer } from '@/components/svg/illustration-layer';
 import { colors, typography } from '@/theme';
-
-type LayerProps = {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
-  width: number;
-  height: number;
-  children: ReactNode;
-};
-
-function Layer({ top, right, bottom, left, width, height, children }: LayerProps) {
-  const frame: ViewStyle = { top, right, bottom, left };
-
-  return (
-    <Svg
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
-      fill="none"
-      style={[styles.layer, frame]}
-    >
-      {children}
-    </Svg>
-  );
-}
 
 export function Mascot() {
   return (
@@ -351,12 +326,10 @@ export function Mascot() {
 const styles = StyleSheet.create({
   scene: {
     position: 'relative',
+    alignSelf: 'center',
     width: 390,
+    maxWidth: '100%',
     height: 215,
-    overflow: 'visible',
-  },
-  layer: {
-    position: 'absolute',
     overflow: 'visible',
   },
   motion: {

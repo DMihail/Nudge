@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
 import { Redirect } from 'expo-router';
 
+import { Screen } from '@/components/screen';
 import { onboardingHref, OnboardingStep, useOnboardingStore } from '@/store/onboarding';
 import { APP_NAME, colors, spacing, typography } from '@/theme';
 
@@ -13,10 +14,10 @@ export default function HomeScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <Screen style={styles.container}>
       <Text style={styles.title}>Hello World</Text>
       <Text style={styles.appName}>{APP_NAME}</Text>
-    </View>
+    </Screen>
   );
 }
 
@@ -25,16 +26,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.surface,
-    padding: spacing.lg,
+    backgroundColor: colors.background,
+    paddingHorizontal: spacing.lg,
     gap: spacing.xs,
   },
   title: {
     ...typography.title,
-    color: '#111111',
+    color: colors.text.primary,
   },
   appName: {
-    fontSize: 20,
-    color: '#111111',
+    ...typography.skip,
+    color: colors.text.secondary,
   },
 });

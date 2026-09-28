@@ -3,6 +3,12 @@ import { type ViewStyle } from 'react-native';
 import { colors } from '@/theme/colors';
 
 export const shadows = {
+  option: {
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 16,
+  },
   card: {
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 4 },

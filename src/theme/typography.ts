@@ -31,6 +31,31 @@ export const typography = {
     letterSpacing: -1.2,
     lineHeight: 45.2,
   },
+  screenHeadline: {
+    fontFamily: FontFamily.display,
+    fontSize: 36,
+    fontWeight: '800',
+    letterSpacing: -1,
+    lineHeight: 41.4,
+  },
+  subtitle: {
+    fontFamily: FontFamily.body,
+    fontSize: 15,
+    fontWeight: '400',
+    lineHeight: 24,
+  },
+  cardTitle: {
+    fontFamily: FontFamily.display,
+    fontSize: 15,
+    fontWeight: '700',
+    lineHeight: 22.5,
+  },
+  cardBody: {
+    fontFamily: FontFamily.body,
+    fontSize: 13,
+    fontWeight: '400',
+    lineHeight: 18.85,
+  },
   body: {
     fontFamily: FontFamily.body,
     fontSize: 15.5,

@@ -1,10 +1,12 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { useRouter } from 'expo-router';
 
-import { BenefitItem, ChartIcon, CheckIcon, StarIcon } from '@/components/benefit-item';
-import { Mascot } from '@/components/mascot';
-import { completeOnboarding, onboardingHref,OnboardingStep } from '@/store/onboarding';
+import { BenefitItem } from '@/components/benefit-item';
+import { Screen } from '@/components/screen';
+import { ChartIcon, CheckIcon, StarIcon } from '@/components/svg/benefit-icons';
+import { Mascot } from '@/components/svg/mascot';
+import { completeOnboarding, onboardingHref, OnboardingStep } from '@/store/onboarding';
 import { colors, radii, shadows, spacing, typography } from '@/theme';
 
 export function OnboardingWelcomeScreen() {
@@ -16,68 +18,75 @@ export function OnboardingWelcomeScreen() {
   }
 
   return (
-    <View style={styles.screen}>
-      <View style={styles.header}>
-        <Text style={styles.brand}>Nudge</Text>
-        <Pressable accessibilityRole="button" accessibilityLabel="Skip" onPress={skip}>
-          <Text style={styles.skip}>Skip</Text>
-        </Pressable>
-      </View>
-
-      <Text style={styles.headline}>
-        Small pushes.{'\n'}
-        <Text style={styles.headlineAccent}>Big results.</Text>
-      </Text>
-
-      <Text style={styles.subtitle}>
-        Nudge helps you stay accountable, get things done, and become a better version of yourself.
-      </Text>
-
-      <View style={styles.mascotSection}>
-        <Mascot />
-      </View>
-
-      <View style={styles.benefits}>
-        <BenefitItem
-          title="Build habits"
-          description="Turn intentions into actions."
-          iconBackgroundColor={colors.primary}
-          icon={<CheckIcon />}
-        />
-        <View style={styles.divider} />
-        <BenefitItem
-          title="Track progress"
-          description="See your growth every day."
-          iconBackgroundColor={colors.successSurface}
-          icon={<ChartIcon />}
-        />
-        <View style={styles.divider} />
-        <BenefitItem
-          title="Earn rewards"
-          description="Stay consistent and level up."
-          iconBackgroundColor={colors.warningSurface}
-          icon={<StarIcon />}
-        />
-      </View>
-
-      <View style={styles.pagination}>
-        <View style={styles.dotActive} />
-        <View style={styles.dot} />
-        <View style={styles.dot} />
-      </View>
-
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel="Get started"
-        onPress={() => router.push(onboardingHref(OnboardingStep.Features))}
+    <Screen style={styles.screen}>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
       >
-        <View style={styles.button}>
-          <Text style={styles.buttonLabel}>Get started →</Text>
+        <View style={styles.header}>
+          <Text style={styles.brand}>Nudge</Text>
+          <Pressable accessibilityRole="button" accessibilityLabel="Skip" onPress={skip}>
+            <Text style={styles.skip}>Skip</Text>
+          </Pressable>
         </View>
-      </Pressable>
 
-      <Text style={styles.footer}>A BETTER YOU TOMORROW</Text>
-    </View>
+        <Text style={styles.headline}>
+          Small pushes.{'\n'}
+          <Text style={styles.headlineAccent}>Big results.</Text>
+        </Text>
+
+        <Text style={styles.subtitle}>
+          Nudge helps you stay accountable, get things done, and become a better version of
+          yourself.
+        </Text>
+
+        <View style={styles.mascotSection}>
+          <Mascot />
+        </View>
+
+        <View style={styles.benefits}>
+          <BenefitItem
+            title="Build habits"
+            description="Turn intentions into actions."
+            iconBackgroundColor={colors.primary}
+            icon={<CheckIcon />}
+          />
+          <View style={styles.divider} />
+          <BenefitItem
+            title="Track progress"
+            description="See your growth every day."
+            iconBackgroundColor={colors.successSurface}
+            icon={<ChartIcon />}
+          />
+          <View style={styles.divider} />
+          <BenefitItem
+            title="Earn rewards"
+            description="Stay consistent and level up."
+            iconBackgroundColor={colors.warningSurface}
+            icon={<StarIcon />}
+          />
+        </View>
+
+        <View style={styles.pagination}>
+          <View style={styles.dotActive} />
+          <View style={styles.dot} />
+          <View style={styles.dot} />
+        </View>
+
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Get started"
+          onPress={() => router.push(onboardingHref(OnboardingStep.Features))}
+        >
+          <View style={styles.button}>
+            <Text style={styles.buttonLabel}>Get started →</Text>
+          </View>
+        </Pressable>
+
+        <Text style={styles.footer}>A BETTER YOU TOMORROW</Text>
+      </ScrollView>
+    </Screen>
   );
 }
 
@@ -86,11 +95,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
+  scroll: {
+    flex: 1,
+  },
+  content: {
+    flexGrow: 1,
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 56,
+    paddingTop: spacing.md,
     paddingHorizontal: spacing.xl,
   },
   brand: {
@@ -103,7 +118,7 @@ const styles = StyleSheet.create({
   },
   headline: {
     ...typography.headline,
-    marginTop: 22,
+    marginTop: spacing.xl,
     paddingHorizontal: spacing.xl,
     color: colors.text.primary,
   },
@@ -160,7 +175,7 @@ const styles = StyleSheet.create({
   button: {
     ...shadows.button,
     height: 65,
-    marginHorizontal: 20,
+    marginHorizontal: spacing.xl,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: radii.button,
