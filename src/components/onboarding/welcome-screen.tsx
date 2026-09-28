@@ -1,15 +1,27 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+
+import { useRouter } from 'expo-router';
 
 import { BenefitItem, ChartIcon, CheckIcon, StarIcon } from '@/components/benefit-item';
 import { Mascot } from '@/components/mascot';
+import { completeOnboarding, onboardingHref,OnboardingStep } from '@/store/onboarding';
 import { colors, radii, shadows, spacing, typography } from '@/theme';
 
-export default function OnboardingWelcomeScreen() {
+export function OnboardingWelcomeScreen() {
+  const router = useRouter();
+
+  function skip() {
+    completeOnboarding();
+    router.replace('/');
+  }
+
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
         <Text style={styles.brand}>Nudge</Text>
-        <Text style={styles.skip}>Skip</Text>
+        <Pressable accessibilityRole="button" accessibilityLabel="Skip" onPress={skip}>
+          <Text style={styles.skip}>Skip</Text>
+        </Pressable>
       </View>
 
       <Text style={styles.headline}>
@@ -54,9 +66,15 @@ export default function OnboardingWelcomeScreen() {
         <View style={styles.dot} />
       </View>
 
-      <View style={styles.button}>
-        <Text style={styles.buttonLabel}>Get started →</Text>
-      </View>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel="Get started"
+        onPress={() => router.push(onboardingHref(OnboardingStep.Features))}
+      >
+        <View style={styles.button}>
+          <Text style={styles.buttonLabel}>Get started →</Text>
+        </View>
+      </Pressable>
 
       <Text style={styles.footer}>A BETTER YOU TOMORROW</Text>
     </View>

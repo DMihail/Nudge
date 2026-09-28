@@ -1,17 +1,21 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import { Link } from 'expo-router';
+import { Redirect } from 'expo-router';
 
+import { onboardingHref, OnboardingStep, useOnboardingStore } from '@/store/onboarding';
 import { APP_NAME, colors, spacing, typography } from '@/theme';
 
 export default function HomeScreen() {
+  const completed = useOnboardingStore((state) => state.completed);
+
+  if (!completed) {
+    return <Redirect href={onboardingHref(OnboardingStep.Welcome)} />;
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Hello World</Text>
       <Text style={styles.appName}>{APP_NAME}</Text>
-      <Link href={'/onboarding'}>
-        <Text style={styles.title}>onboarding</Text>
-      </Link>
     </View>
   );
 }
