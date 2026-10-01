@@ -6,14 +6,14 @@ import { BenefitItem } from '@/components/benefit-item';
 import { Screen } from '@/components/screen';
 import { ChartIcon, CheckIcon, StarIcon } from '@/components/svg/benefit-icons';
 import { Mascot } from '@/components/svg/mascot';
-import { completeOnboarding, onboardingHref, OnboardingStep } from '@/store/onboarding';
+import { onboardingHref, OnboardingStep, useOnboardingStore } from '@/store/onboarding';
 import { colors, radii, shadows, spacing, typography } from '@/theme';
 
 export function OnboardingWelcomeScreen() {
   const router = useRouter();
 
   function skip() {
-    completeOnboarding();
+    useOnboardingStore.getState().completeOnboarding();
     router.replace('/');
   }
 
