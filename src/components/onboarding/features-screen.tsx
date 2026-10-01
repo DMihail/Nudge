@@ -11,12 +11,7 @@ import {
 import { Screen } from '@/components/screen';
 import { GrowthIcon, ProgressIcon, ReminderIcon, RewardIcon } from '@/components/svg/feature-icons';
 import { FeaturesMascot } from '@/components/svg/features-mascot';
-import {
-  completeOnboarding,
-  onboardingHref,
-  OnboardingStep,
-  setNudgeStyle,
-} from '@/store/onboarding';
+import { onboardingHref, OnboardingStep, useOnboardingStore } from '@/store/onboarding';
 import { colors, radii, shadows, spacing, typography } from '@/theme';
 
 function FeatureCard({
@@ -47,7 +42,7 @@ export function OnboardingFeaturesScreen() {
   const router = useRouter();
 
   function skip() {
-    completeOnboarding();
+    useOnboardingStore.getState().completeOnboarding();
     router.replace('/');
   }
 
@@ -107,7 +102,7 @@ export function OnboardingFeaturesScreen() {
         <OnboardingButton
           label="Next →"
           onPress={() => {
-            setNudgeStyle('normal');
+            useOnboardingStore.getState().setNudgeStyle('normal');
             router.push(onboardingHref(OnboardingStep.Style, 'normal'));
           }}
         />

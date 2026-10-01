@@ -12,12 +12,11 @@ import { Screen } from '@/components/screen';
 import { BrutalIcon, GamifiedIcon, GentleIcon, NormalIcon } from '@/components/svg/style-icons';
 import { StyleMascot } from '@/components/svg/style-mascot';
 import {
-  completeOnboarding,
   isNudgeStyle,
   type NudgeStyle,
   onboardingHref,
   OnboardingStep,
-  setNudgeStyle,
+  useOnboardingStore,
 } from '@/store/onboarding';
 import { colors, spacing, typography } from '@/theme';
 
@@ -27,12 +26,12 @@ export function OnboardingStyleScreen() {
   const selected: NudgeStyle = isNudgeStyle(style) ? style : 'normal';
 
   function choose(next: NudgeStyle) {
-    setNudgeStyle(next);
+    useOnboardingStore.getState().setNudgeStyle(next);
     router.setParams({ style: next });
   }
 
   function skip() {
-    completeOnboarding();
+    useOnboardingStore.getState().completeOnboarding();
     router.replace('/');
   }
 
@@ -98,8 +97,8 @@ export function OnboardingStyleScreen() {
         <OnboardingButton
           label="Continue →"
           onPress={() => {
-            setNudgeStyle(selected);
-            completeOnboarding();
+            useOnboardingStore.getState().setNudgeStyle(selected);
+            useOnboardingStore.getState().completeOnboarding();
             router.replace('/');
           }}
         />
