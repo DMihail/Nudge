@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { Redirect } from 'expo-router';
+import { type Href, Redirect, useRouter } from 'expo-router';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -65,6 +65,7 @@ const tasks: HomeTask[] = [
 export default function HomeScreen() {
   const completed = useOnboardingStore((state) => state.completed);
   const insets = useSafeAreaInsets();
+  const router = useRouter();
 
   if (!completed) {
     return <Redirect href={onboardingHref(OnboardingStep.Welcome)} />;
@@ -140,6 +141,7 @@ export default function HomeScreen() {
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Add a new task"
+            onPress={() => router.push('/createTask' as unknown as Href)}
             style={styles.addCard}
           >
             <View style={styles.addIcon}>
@@ -162,7 +164,12 @@ export default function HomeScreen() {
 
       <View style={styles.tabBar}>
         <TabItem label="Home" active icon={<HomeIcon />} />
-        <TabItem label="Add" icon={<NavPlusIcon />} badge />
+        <TabItem
+          label="Add"
+          icon={<NavPlusIcon />}
+          badge
+          onPress={() => router.push('/createTask' as unknown as Href)}
+        />
         <TabItem label="Stats" icon={<StatsIcon />} />
         <TabItem label="Profile" icon={<ProfileIcon />} />
       </View>
@@ -233,17 +240,20 @@ function TabItem({
   icon,
   active = false,
   badge = false,
+  onPress,
 }: {
   label: string;
   icon: ReactNode;
   active?: boolean;
   badge?: boolean;
+  onPress?: () => void;
 }) {
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
       accessibilityState={{ selected: active }}
+      onPress={onPress}
       style={styles.tab}
     >
       {badge ? <View style={styles.addBadge}>{icon}</View> : icon}
